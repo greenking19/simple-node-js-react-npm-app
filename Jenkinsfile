@@ -1,17 +1,15 @@
 pipeline {
-    agent any
-
+   agent {
+        docker {
+            image 'node:6-alpine' 
+            args '-p 3000:3000' 
+        }
+    }
     stages {
-        stage('Install Dependencies') {
+        stage('Build') { 
             steps {
-                script {
-                    // 使用拉取的 Node.js 镜像
-                    docker.image('node:14').inside {
-                        sh 'npm install'
-                    }
-                }
+                sh 'npm install' 
             }
         }
-        // 其他阶段...
     }
 }
